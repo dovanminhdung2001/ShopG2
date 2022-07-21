@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Thêm giày mới</title>
+  <style>
+    html, body {
+      min-height: 100%;
+      padding: 0;
+      margin: 0;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+    }
+    h1 {
+      margin: 0 0 20px;
+      font-weight: 400;
+      color: #1c87c9;
+    }
+    p {
+      margin: 10px 0 5px;
+    }
+    .main-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1c87c9;
+    }
+    form {
+      width: 60%;
+      height: auto;
+      padding: 15px;
+      margin: 25px;
+      box-shadow: 0 2px 5px #f5f5f5;
+      background: #f5f5f5;
+    }
+    .fas {
+      margin: 25px 10px 0;
+      font-size: 72px;
+      color: #fff;
+    }
+    .fa-envelope {
+      transform: rotate(-20deg);
+    }
+    .fa-at , .fa-mail-bulk{
+      transform: rotate(10deg);
+    }
+    input, textarea, select {
+      width: calc(100% - 18px);
+      padding: 5px;
+      margin-bottom: 2px;
+      border: 1px solid #1c87c9;
+      outline: none;
+    }
+    select{
+      width: 100%;
+    }
+    input::placeholder {
+      color: #666;
+    }
+    button {
+      width: 100%;
+      padding: 5px;
+      border: none;
+      background: #1c87c9;
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+    }
+    button:hover {
+      background: #2371a0;
+    }
+    .err {
+      margin-bottom: 5px;
+      color: red;
+    }
+  </style>
+</head>
+<body>
+<div class="main-block">
+  <div class="left-part">
+    <i class="fas fa-envelope"></i>
+    <i class="fas fa-at"></i>
+    <i class="fas fa-mail-bulk"></i>
+  </div>
+  <form action="/admin/changeShoeInformationSuccess" method="post">
+    <h1>Sửa thông tin giày</h1>
+    <div class="info">
+      <p>Mã</p>
+      <input id="inputId" class="id" type="text" name="id" placeholder="Mã" required>
+      <p id="shoeIdErr" class="err" ></p>
+      <p>Tên</p>
+      <input id="inputName" type="text" name="name" placeholder="Tên" required>
+      <p>Giá</p>
+      <input id="inputPrice" type="number" name="price" placeholder="Giá" required>
+      <p id="shoePriceErr" class="err"></p>
+      <p>Hãng</p>
+      <select name="manufact" id="cars" required>
+        <option value="adidas">adidas</option>
+        <option value="balenciaga">balenciaga</option>
+        <option value="bitit's">bitit's</option>
+        <option value="converse-van">converse-van</option>
+        <option value="fila">fila</option>
+        <option value="nike">nike</option>
+        <option value="puma">puma</option>
+        <option value="reebok">reebok</option>
+      </select>
+      <p>Ảnh 1</p>
+      <input  type="url" id="url1" name="url1" placeholder="url" pattern="https://.*\.(png|jpg)" size="30"   required>
+      <p>Ảnh 2</p>
+      <input  type="url" id="url2" name="url2" placeholder="url" pattern="https://.*\.(png|jpg)" size="30"   required>
+      <p>Ảnh 3</p>
+      <input  type="url" id="url3" name="url3" placeholder="url" pattern="https://.*\.(png|jpg)" size="30"   required>
+      <p>Ảnh 4</p>
+      <input  type="url" id="url4" name="url4" placeholder="url" pattern="https://.*\.(png|jpg)" size="30"   required>
+      <p>Ảnh 5</p>
+      <input  type="url" id="url5" name="url5" placeholder="url" pattern="https://.*\.(png|jpg)" size="30"   required>
+    </div>
+    <p>Thông tin</p>
+    <div>
+      <textarea id="inputInformation" rows="4" required name="information"></textarea>
+    </div>
+    <button type="submit" onclick="submitForm()" >Sửa</button><br> <hr>
+    <button type="button" onclick="toHome()">Home</button>
+  </form>
+</div>
+<script>
+  function submitForm() {
+    let id = document.getElementById('inputId').value;
+    let name = document.getElementById('inputName').value;
+    let price = document.getElementById('inputPrice').value;
+    let url1 = document.getElementById('url1').value;
+    let url2 = document.getElementById('url2').value;
+    let url3 = document.getElementById('url3').value;
+    let url4 = document.getElementById('url4').value;
+    let url5 = document.getElementById('url5').value;
+    let information = document.getElementById('inputInformation').value;
+
+    let valid1, validId, validName, validPrice, validUrl1, validUrl2, validUrl3, validUrl4, validUrl5, validInformation;
+
+    let re = new RegExp('https://.*\\.(png|jpg)');
+    let notEmptyReg = new RegExp('^(?!\\s*$).+');
+    let notIsNull  = new RegExp('^((?!null))');
+
+    let http = new XMLHttpRequest();
+    let data;
+    http.open('GET' , 'http://localhost:8080/product/api/' + id);
+    http.send();
+    http.onreadystatechange = function () {
+      if (this.readyState == 4 && this.status == 200) {
+        data = JSON.parse(this.responseText);
+        valid1 = notIsNull.test(data.shoeId);
+        validId = notEmptyReg.test(id) && notIsNull.test(id) && valid1;
+        validName = notEmptyReg.test(name);
+        validPrice =  (notEmptyReg.test(price) && price > 0);
+        validUrl1 = re.test(url1);
+        validUrl2 = re.test(url2);
+        validUrl3 = re.test(url3);
+        validUrl4 = re.test(url4);
+        validUrl5 = re.test(url5);
+        validInformation = notEmptyReg.test(information);
+        if(!validId) alert('Thử id khác');
+        if(!validName) alert('name: '+validName);
+        if(!validPrice) alert('price: '+validPrice);
+        if (!validUrl1) alert('url1: '+validUrl1);
+        if (!validUrl2) alert('url2: '+validUrl2);
+        if (!validUrl3) alert('url3: '+validUrl3);
+        if (!validUrl4) alert('url4: '+validUrl4);
+        if (!validUrl5) alert('url5: '+validUrl5);
+        if (!validInformation) alert('infor: '+validInformation);
+
+        if (validId && validName && validPrice && validInformation && validInformation && validUrl1 && validUrl2 && validUrl3 && validUrl4 && validUrl5){
+          alert('Thong tin da hop le');
+        }
+
+        document.getElementById('inputId').innerText = id;
+        document.getElementById('inputPrice').innerText = price;
+        document.getElementById('url1').innerText = url1;
+        document.getElementById('url2').innerText = url2;
+        document.getElementById('url3').innerText = url3;
+        document.getElementById('url4').innerText = url4;
+        document.getElementById('url5').innerText = url5;
+        document.getElementById('inputInformation').innerText = information;
+      }
+    }
+  }
+  function toHome() {
+    window.open("/admin", "_self")
+  }
+</script>
+</body>
+</html>

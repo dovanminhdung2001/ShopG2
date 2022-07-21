@@ -1,0 +1,1025 @@
+<!DOCTYPE html>
+<html lang ="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>Giỏ Hàng Của Tôi</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css">
+    
+    <!-- Root -->
+    <style>
+    :root {
+        --nav-background-color: #2A2A2A;
+        --content-text-color: #cccccc;
+        --title-text-color: #f5f5f5;
+        --background-color: #121212;
+        --searchbar-background: #202020;
+        --blue: #0074e4;
+        --blue-hover: #3790e2;
+        --header-herght: 51.8px;
+        --header-search-herght: 80px;
+      }
+
+      html {
+        font-size: 62.5%;
+        line-height: 1.6rem;
+        font-family: 'Roboto', sans-serif;
+        box-sizing: border-box;
+        background-color: var(--background-color);
+      }
+      /* Responsive */
+      .grid {
+        width: 75%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .grid__full-width {
+        width: 100%;
+      }
+
+      .grid__row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+
+      .separate{
+        height: 1px;
+        width: 100%;
+        background-color: #cccccc1f;
+      }
+
+      * {
+        box-sizing: inherit;
+      }
+    </style>
+    <!-- Nav Bar -->
+    <style>
+      .logo-link {
+        color: transparent;
+        text-decoration: none;
+      }
+
+      .header-nav {
+        width: 100%;
+        height: var(--header-herght);
+        background-color: var(--nav-background-color);
+        justify-content: space-between;
+        display: flex;
+      }
+
+      .header__navbar {
+        width: 100%;
+        display: flex;
+        line-height: var(--header-herght);
+        justify-content: space-between;
+      }
+
+      .header__navbar-list {
+        height: var(--header-herght);
+        padding-left: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .header__navbar-item, .header__navbar-item-link {
+        height: var(--header-herght);
+        color: var(--content-text-color);
+        list-style: none;
+        display: inline-block;
+        font-size: 1.2rem;
+        text-decoration: none;
+        font-weight: 400;
+        padding-bottom: 1px;
+      }
+
+      .header__navbar-item, .header__navbar-item-link:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__navbar-item-link {
+        padding: 2px 20px 0;
+        box-sizing: border-box;
+      }
+
+      .header__navbar-item-link-cart {
+        background-color: #0078f2;
+        width: 136.25px;
+        padding-top: 2px;
+        margin: 0 auto;
+      }
+
+      .header__navbar-item-link-cart:hover {
+        background-color: #3299ff;
+      }
+
+      .cart-notice {
+        padding: 1px 10px 0;
+        margin-left: 5px;
+        background-color: #f5f5f5;
+        color: #121212;
+        line-height: 30px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 1.3rem;
+        /* display: none; */
+      }
+    </style>
+    <!-- Search Bar -->
+    <style>
+      .header-search {
+        height: var(--header-search-herght);
+        background-color: var(--background-color);
+        display: flex;
+      }
+
+      .header-search-bar {
+        height: var(--header-search-herght);
+        max-width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .search-bar {
+        background-color: var(--searchbar-background);
+        height: 40px;
+        width: 300px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .search-bar-input {
+        background-color: none;
+        height: 100%;
+        width: 100%;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        font-size: 1.4rem;
+        color: var(--title-text-color);
+        font-weight: 500;
+        background-color: transparent;
+        margin-top: 1px;
+      }
+
+      .search-bar-input:focus ~ .search-history {
+        display: block;
+      }
+
+      .search-history {
+        position: absolute;
+        top: calc(100% + 10px);
+        width: 500px;
+        border-radius: 4px;
+        background-color: var(--searchbar-background);
+        display: none;
+
+      }
+
+      .search-history-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .search-history-item {
+        padding: 8px 20px;
+      }
+
+      .search-history-item a {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: var(--title-text-color);
+        padding: 8px 0;
+      }
+
+      .search-history-item a:hover {
+        text-decoration: underline;
+      }
+
+      .header-search-nav {
+        height: var(--header-search-herght);
+        display: flex;
+      }
+
+      .header-search-nav-list {
+        height: var(--header-search-herght);
+        line-height: var(--header-search-herght);
+        display: flex;
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .header__search-nav-item {
+        color: var(--content-text-color);
+        font-size: 1.2rem;
+        margin: 1px 5px 0;
+      }
+
+      .header__search-nav-item:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__search-nav-item-link {
+        list-style: none;
+        text-decoration: none;
+        font-weight: 400;
+        padding: 10px;
+        color: var(--content-text-color);
+        font-size: 1.6rem;
+        font-weight: 320;
+        transition: color linear 0.1s;
+      }
+
+      .header__search-nav-item-link:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__search-nav-item-link-cart {
+        background-color: #0078f2;
+      }
+
+      .header__search-nav-item-link-cart:hover {
+        background-color: #3299ff;
+      }
+    </style>
+    <!-- Container -->
+    <style>
+      .app-content {
+        margin: 15px 0 90px;
+      }
+      
+      .grid__column-3 {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 25%;  
+      }
+
+      .grid__column-9 {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 75%;
+      }
+
+      /* Title */
+      .title {
+        margin: 10px 0 30px;
+        width: 100%;
+      }
+
+      .title-text {
+        color: var(--title-text-color);
+        font-size: 5.0rem;
+        font-weight: 400;
+      }
+
+      /* Cart Product */
+      .grid__column-cart-product {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 100%;
+      }
+
+      .cart-product-items {
+        display: flex;
+        background-color: #0074e4;
+        height: 214.66px;
+        width: 100%;
+        margin-bottom: 20px;
+        border-radius: 4px;
+        background-color: rgb(32, 32, 32);
+        padding: 20px;
+      }
+
+      .cart-product-items-link:hover {
+          opacity: 0.8;
+      }
+
+      .product-items__img {
+        height: 100%;
+        aspect-ratio: 1 / 1;
+        background-repeat: no-repeat;
+        background-size: contain;
+        border-radius: 4px;
+        transition: opacity linear 0.1s;
+        margin-right: 20px;
+      }
+
+      .cart-product-items-detail{
+        height: 100%;
+        width: 100%;
+      }
+
+      .detail-title {
+          display: flex;
+      }
+
+      .product-items__brand {
+        background-color: var(--blue);
+        width: fit-content;
+        font-size: 1.4rem;
+        text-transform: uppercase;
+        padding: 7px 12px 5px;
+        border-radius: 4px;
+        font-weight: 500;
+        margin-bottom: 13px;
+      }
+
+      .product-items__brand-link {
+        text-decoration: none;
+        color: var(--title-text-color);
+        height: fit-content;
+      }
+
+      .product-items__brand-link:hover .product-items__brand{
+        background-color: var(--blue-hover);
+      }
+
+      .product-items__price-current {
+        font-size: 1.6rem;
+        color: var(--title-text-color);
+      }
+
+      .product-items-name-link {
+        text-decoration: none;
+        font-size: 1.6rem;
+        color: var(--title-text-color);
+        padding: 8px 0;
+        font-size: 2.2rem;
+      }
+
+      .product-items-name-link:hover {
+        text-decoration: underline;
+      }
+
+      .product-items__size {
+        display: flex;
+        font-size: 1.6rem;
+        color: var(--content-text-color);
+      }
+
+      .product-items__id {
+        display: flex;
+        font-size: 1.6rem;
+        color: var(--content-text-color);
+      }
+
+      .product-items__id span {
+        display: inline-block;
+        align-self: flex-end;
+      }
+
+      .product-items__remove-btn {
+        background-color: rgb(32, 32, 32);
+        border: none;
+        color: var(--content-text-color);
+        font-size: 1.6rem;
+        text-decoration: underline;
+        height: 20px;
+        display: inline-block;
+        align-self: flex-end;
+        margin-left: 20px;
+      }
+
+      .product-items__remove-btn:hover {
+          color: var(--title-text-color);
+          cursor: pointer;
+      }
+
+      .product-items-btn {
+        background-color: var(--content-text-color);
+        height: 30px;
+        width: 30px;
+        border-radius: 15px;
+        align-self: flex-end;
+        border: none;
+        font-size: 1.7rem;
+        font-weight: 800;
+      }
+
+      .product-items-btn:hover {
+        cursor: pointer;
+        background-color: #f5f5f5;
+      }
+
+      .item-value {
+        background-color: var(--content-text-color);
+        height: 30px;
+        width: fit-content;
+        min-width: 35px;
+        border-radius: 4px;
+        align-self: flex-end;
+        border: none;
+        font-size: 1.7rem;
+        font-weight: 800;
+        text-align: center;
+        line-height: 30px;
+        margin: 0 10px;
+        padding: 0 10px;
+      }
+
+      /* Summary */
+      .header-summary {
+        color: var(--title-text-color);
+        font-size: 2.8rem;
+        line-height: normal;
+        margin: 0;
+        font-weight: 400;
+        margin-bottom: 35px;
+      }
+
+      .summary-price {
+        color: var(--title-text-color);
+        font-size: 1.6rem;
+        margin-bottom: 20px;
+      }
+
+      .buy-btn {
+        display: block;
+        background-color: var(--blue);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 50px;
+        color: var(--title-text-color);
+        font-size: 17px;
+        font-weight: 600;
+        transition: 0.1s;
+        width: 100%;
+        cursor: pointer;
+        transition: 0.1s;
+      }
+
+      .buy-btn:hover {
+        background-color: var(--blue-hover);
+      }
+
+      /* Popup Window */
+      .overlay {
+        position: fixed;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        background: rgba(0, 0, 0, 0.8);
+        transition: opacity 300ms;
+        visibility: hidden;
+        opacity: 0;
+      }
+
+      #payment:checked ~ .overlay {
+        visibility: visible;
+        opacity: 1;
+      }
+
+      .order-form {
+        margin: 120px auto;
+        padding: 20px;
+        background: #fff;
+        border-radius: 4px;
+        width: fit-content;
+        position: relative;
+        transition: all 5s ease-in-out;
+      }
+
+      .order-form .close {
+        position: absolute;
+        top: 25px;
+        right: 25px;
+        font-size: 30px;
+        font-weight: 200;
+        text-decoration: none;
+        color: #7e7e7e;
+      }
+
+      .close:hover {
+        cursor: pointer;
+        color: #000000;
+      }
+
+      h3 {
+        font-size: 2.4rem;
+      }
+
+      .payment-title {
+        font-size: 1.6rem;
+        font-weight: 500;
+        line-height: 40px;
+      }
+
+      .payment-input {
+        width: 400px;
+        height: 40px;
+        padding: 0 10px;
+        border: solid 1px #acacac;
+        border-radius: 4px;
+        font-size: 1.4rem;
+      }
+
+      .payment-btn {
+        width: 200px;
+      }
+
+      .form-message {
+        font-size: 1.3rem;
+        margin-top: 4px;
+      }
+
+      .invalid {
+        color: red;
+      }
+
+      .invalid .payment-input {
+        border-color: red;
+      }
+    </style>
+
+    <!-- Footer -->
+    <style>
+      .footer {
+        padding: 20px 72px 40px;
+        background-color: var(--searchbar-background);
+      }
+      
+      .grid__column-fooder {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 20%;
+      }
+
+      .follow {
+        display: flex;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .follow-items {
+        padding: 0 6px;
+      }
+
+      .follow-items-link {
+        color: #e7e7e7;
+        font-size: 32px;
+        transition: color linear 0.1s;
+      }
+
+      .follow-items-link:hover {
+        color: #0078f2;
+      }
+
+      .footer-heading {
+        color: #cccccc99;
+        font-size: 14px;
+      }
+
+      .footer-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .footer-list-items {
+        padding: 4px 0;
+      }
+
+      .footer-list-items-link {
+        color: var(--title-text-color);
+        text-decoration: none;
+        font-size: 14px;
+        padding: 4px 0;
+        transition: color linear 0.1s;
+      }
+
+      .footer-list-items-link:hover {
+        color: #0078f2;
+      }
+
+      .policy-list {
+        list-style: none;
+        display: flex;
+        padding-left: 0;
+      }
+
+      .policy-list-items {
+        padding: 20px 8px 0;
+      }
+
+      .policy-list-items-link {
+        color: #e7e7e7;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color linear 0.1s;
+      }
+
+      .policy-list-items-link:hover {
+        color: #0078f2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!--Header Nav-->
+      <header style="position: absolute; width: 100%; transform: translateY(calc(-100% - 1px));" class="header">
+        <div class="header-nav">
+          <a class="logo-link" href="/">
+            <div class="header-logo"><img style="height: 43px; margin: 5px 15px 0;" src="./assets/img/logo.png" alt=""></div>
+          </a>
+          <nav class="header__navbar">
+            <ul class="header__navbar-list">
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>CỬA HÀNG</b></a>
+              </li>
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>HỖ TRỢ</b></a>
+              </li>
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>TIN TỨC</b></a>  
+              </li>
+            </ul>
+  
+            <ul class="header__navbar-list">
+              <li style="text-align: center;" class="header__navbar-item">
+                <a style="color: var(--title-text-color);" href="" class="header__navbar-item-link header__navbar-item-link-cart">
+                    <b>GIỎ HÀNG</b><span class="cart-notice">3</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <div class="container">
+        <!--Search Bar-->
+        <div style="position: sticky; position: -webkit-sticky; top: 0; margin-top: var(--header-herght);" class="grid">
+          <div class="header-search">
+            <div class="header-search-bar">
+              <div class="search-bar">
+                <i style="color: var(--title-text-color); margin: 2px 16px 0;" class="fa-solid fa-magnifying-glass fa-lg"></i>
+                <input spellcheck="false" type="text" class="search-bar-input"  placeholder="Tìm Kiếm Sản Phẩm">
+                <div class="search-history">
+                  <!-- Search History -->
+                  <ul class="search-history-list">
+                    <li class="search-history-item">
+                      <a href="">Giày Adidas</a>
+                    </li>
+                    <li class="search-history-item">
+                      <a href="">Giày Balenciaga</a>
+                    </li>
+                    <li class="search-history-item">
+                      <a href="">Giày Gì đó</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+  
+            <div class="header-search-nav">
+              <ul class="header-search-nav-list">
+                <li style="margin-left: 20px;" class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Khám Phá</b></a>
+                </li>
+                <li class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Hàng Mới</b></a>
+                </li>
+                <li class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Hàng Giảm Giá</b></a>  
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__row app-content">
+            <div class="title">
+              <h1>
+                <span class="title-text">Giỏ Hàng Của Tôi</span>
+              </h1>
+            </div>
+
+            <div style="padding-left: 0;" class="grid__column-9">
+              <div class="cart-product">
+                  <div class="grid__row">
+                    <!-- Product Item -->
+                    <div class="grid__column-cart-product">
+                        <div class="cart-product-items">
+                          <a href="" class="cart-product-items-link">
+                              <div class="product-items__img" style="background-image: url(https://salt.tikicdn.com/ts/product/61/a4/cd/30c6ad66b7966421685bd2581afb1873.jpg);"></div>
+                          </a>
+                          <div class="cart-product-items-detail">
+                            <div style="height: 70%; display: flex; justify-content: space-between;">
+                                <div class="detail-title" style="width: 100%;">
+                                    <div class="brand" style="width: 100%;">
+                                        <a href="" class="product-items__brand-link">
+                                            <div class="product-items__brand">Adidas</div>
+                                        </a>
+                                        <a href="" class="product-items-name-link">Giày Siêu Cấp Vip Pro Plus Ultra Max</a>
+                                        <div class="product-items__size" style="margin-top: 10px;">Kích Thước: 36</div>
+                                    </div>
+                                </div>
+                                <div class="product-items__price">
+                                    <span class="product-items__price-current">3.200.000đ</span>
+                                </div>
+                            </div>  
+                            <div style="height: 30%; display: flex; justify-content: space-between;">
+                                <div class="product-items__id">
+                                    <span>ID Sản Phẩm: 726176W3RCD9010</span>
+                                </div>
+                                <div class="div" style="display: flex;">
+                                  <div class="button" style="display: flex">
+                                    <button class="product-items-btn product-items__minus-btn">
+                                      <span>-</span>
+                                    </button>
+                                    <div class="item-value">
+                                      <span>2</span>
+                                    </div>
+                                    <button class="product-items-btn product-items__plus-btn">
+                                      <span>+</span>
+                                    </button>
+                                  </div>
+                                  <button class="product-items__remove-btn">
+                                      <span>Xóa Sản Phẩm</span>
+                                  </button>
+                                </div>
+                            </div>  
+                          </div>
+                        </div>
+                    </div>
+                    <!-- Product Item -->
+                    <div class="grid__column-cart-product">
+                      <div class="cart-product-items">
+                        <a href="" class="cart-product-items-link">
+                            <div class="product-items__img" style="background-image: url(https://salt.tikicdn.com/ts/product/61/a4/cd/30c6ad66b7966421685bd2581afb1873.jpg);"></div>
+                        </a>
+                        <div class="cart-product-items-detail">
+                          <div style="height: 70%; display: flex; justify-content: space-between;">
+                              <div class="detail-title" style="width: 100%;">
+                                  <div class="brand" style="width: 100%;">
+                                      <a href="" class="product-items__brand-link">
+                                          <div class="product-items__brand">Adidas</div>
+                                      </a>
+                                      <a href="" class="product-items-name-link">Giày Siêu Cấp Vip Pro Plus Ultra Max</a>
+                                      <div class="product-items__size" style="margin-top: 10px;">Kích Thước: 36</div>
+                                  </div>
+                              </div>
+                              <div class="product-items__price">
+                                  <span class="product-items__price-current">3.200.000đ</span>
+                              </div>
+                          </div>  
+                          <div style="height: 30%; display: flex; justify-content: space-between;">
+                              <div class="product-items__id">
+                                  <span>ID Sản Phẩm: 726176W3RCD9010</span>
+                              </div>
+                              <div class="div" style="display: flex;">
+                                <div class="button" style="display: flex">
+                                  <button class="product-items-btn product-items__minus-btn">
+                                    <span>-</span>
+                                  </button>
+                                  <div class="item-value">
+                                    <span>2</span>
+                                  </div>
+                                  <button class="product-items-btn product-items__plus-btn">
+                                    <span>+</span>
+                                  </button>
+                                </div>
+                                <button class="product-items__remove-btn">
+                                    <span>Xóa Sản Phẩm</span>
+                                </button>
+                              </div>
+                          </div>  
+                        </div>
+                      </div>
+                  </div>
+                  <!-- Product Item -->
+                  <div class="grid__column-cart-product">
+                    <div class="cart-product-items">
+                      <a href="" class="cart-product-items-link">
+                          <div class="product-items__img" style="background-image: url(https://salt.tikicdn.com/ts/product/61/a4/cd/30c6ad66b7966421685bd2581afb1873.jpg);"></div>
+                      </a>
+                      <div class="cart-product-items-detail">
+                        <div style="height: 70%; display: flex; justify-content: space-between;">
+                            <div class="detail-title" style="width: 100%;">
+                                <div class="brand" style="width: 100%;">
+                                    <a href="" class="product-items__brand-link">
+                                        <div class="product-items__brand">Adidas</div>
+                                    </a>
+                                    <a href="" class="product-items-name-link">Giày Siêu Cấp Vip Pro Plus Ultra Max</a>
+                                    <div class="product-items__size" style="margin-top: 10px;">Kích Thước: 36</div>
+                                </div>
+                            </div>
+                            <div class="product-items__price">
+                                <span class="product-items__price-current">3.200.000đ</span>
+                            </div>
+                        </div>  
+                        <div style="height: 30%; display: flex; justify-content: space-between;">
+                            <div class="product-items__id">
+                                <span>ID Sản Phẩm: 726176W3RCD9010</span>
+                            </div>
+                            <div class="div" style="display: flex;">
+                              <div class="button" style="display: flex">
+                                <button class="product-items-btn product-items__minus-btn">
+                                  <span>-</span>
+                                </button>
+                                <div class="item-value">
+                                  <span>2</span>
+                                </div>
+                                <button class="product-items-btn product-items__plus-btn">
+                                  <span>+</span>
+                                </button>
+                              </div>
+                              <button class="product-items__remove-btn">
+                                  <span>Xóa Sản Phẩm</span>
+                              </button>
+                            </div>
+                        </div>  
+                      </div>
+                    </div>
+                </div>
+                  </div>
+              </div>
+            </div>
+            <!-- Order -->
+            <div style="padding-right: 0; padding-left: 30px;" class="grid__column-3">
+              <div class="summary">
+                <h2 class="header-summary">Tổng Kết Đơn Hàng</h2>
+                <div class="summary-price" style="display: flex; justify-content: space-between;">
+                  <div class="price-title">Giá Sản Phẩm</div>
+                  <div class="price">3.200.000đ</div>
+                </div>
+                <div class="summary-price" style="display: flex; justify-content: space-between;">
+                  <div class="price-title">Phí Giao Hàng</div>
+                  <div class="price">FREE</div>
+                </div>
+                <div class="summary-price" style="display: flex; justify-content: space-between;">
+                  <div class="price-title">Thuế</div>
+                  <div class="price">10%</div>
+                </div>
+                <div  class="separate"></div>
+                <div class="summary-price" style="display: flex; justify-content: space-between; margin-top: 20px;">
+                  <div class="price-title">Tổng Cộng</div>
+                  <div class="price">3.200.000đ</div>
+                </div>
+                <input style="display: none;" type="checkbox" id="payment">
+                <label for="payment" style="margin-top: 20px;" class="buy-btn">XÁC NHẬN</label>
+                <!-- Popup Window -->
+                <div style="position: fixed; z-index: 1;" class="overlay" id="divOne">
+                  <form class="order-form" id="order-form">
+                    <h3 style="margin-top: 10px; margin-bottom: 20px;">Thông Tin Khách Hàng</h3>
+                    <label for="payment" class="close">&times;</label>
+                    <div class="form-group">
+                      <div style="color: black;" class="payment-title">Họ Tên</div>
+                      <input class="payment-input" placeholder="VD: Ngô Văn Thuần" type="text" name="fullName" id="fullName">
+                      <div class="form-message">
+                        <span></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div style="color: black;" class="payment-title">Số Điện Thoại</div>
+                      <input class="payment-input" placeholder="VD: 0902205450" type="text" name="phone" id="phone">
+                      <div class="form-message">
+                        <span></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div style="color: black;" class="payment-title">Email</div>
+                      <input class="payment-input" placeholder="VD: email@domain.com" type="text" name="email" id="email">
+                      <div class="form-message">
+                        <span></span>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div style="color: black;" class="payment-title">Địa Chỉ</div>
+                      <input class="payment-input" placeholder="Bao gồm số nhà, tên đường, tỉnh, thành phố" type="text" name="address" id="address">
+                      <div class="form-message">
+                        <span></span>
+                      </div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-top: 20px; margin-bottom: 0;">
+                      <div style="color: black;" class="payment-title"></div>
+                      <button style="border: none;" class="buy-btn payment-btn">ĐẶT HÀNG</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="grid__full-width">
+          <ul class="follow">
+            <li style="padding-left: 0;" class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-facebook-square"></i></a>
+            </li>
+            <li style="padding-left: 9px;" class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-youtube"></i></a>
+            </li>
+          </ul>
+          <div class="grid__row">
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Chăm Sóc Khách Hàng</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Trung Tâm Trợ Giúp</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Hướng Dẫn Mua Hàng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Thanh Toán</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Vẫn Chuyển</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Chăm Sóc Khách Hàng</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Thông Tin Về ShoesG2</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Giới Thiệu Về ShoesG2</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Thông Tin Tuyển Dụng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Liên Hệ Với Truyền Thông</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Được Thực Hiện Bởi Nhóm 2</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Ngô Văn Thuần</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Đỗ Văn Minh Dũng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Nguyễn Viết Tân</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Nguyễn Văn Trưởng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Chu Quang Thuận</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+            </div>
+            <div class="grid__column-fooder">
+            </div>
+          </div>
+          <div style="margin: 16px 0;" class="separate"></div>
+          <div class="policy">
+            <ul class="policy-list">
+              <li style="padding-left: 0;" class="policy-list-items">
+                <a href="" class="policy-list-items-link">Điều Khoản Dịch Vụ</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Bảo Mật</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Vận Chuyển</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Trả Hàng Và Hoàn Tiền</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+    </div>
+
+    <script src="./validator.js"></script>
+    
+    <script>
+      Validator({
+        form: '#order-form',
+        errorSelector: '.form-message',
+        rules: [
+          Validator.isRequired('#fullName'),
+          Validator.isEmail('#email'),
+          Validator.isPhoneNumber('#phone'),
+          Validator.isRequired('#address')
+        ]
+      })
+    </script>
+  </body>
+</html>

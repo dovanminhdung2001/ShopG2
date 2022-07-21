@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Nhập kho</title> 
+    <style>
+      html, body {
+      min-height: 100%;
+      padding: 0;
+      margin: 0;
+      font-family: Roboto, Arial, sans-serif;
+      font-size: 14px;
+      color: #666;
+      }
+      h1 {
+      margin: 0 0 20px;
+      font-weight: 400;
+      color: #1c87c9;
+      }
+      p {
+      margin: 10px 0 5px;
+      }
+      .main-block {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      background: #1c87c9;
+      }
+      form {
+      width: 60%;
+      height: auto;
+      padding: 15px;
+      margin: 25px;
+      box-shadow: 0 2px 5px #f5f5f5; 
+      background: #f5f5f5; 
+      }
+      .fas {
+      margin: 25px 10px 0;
+      font-size: 72px;
+      color: #fff;
+      }
+      .fa-envelope {
+      transform: rotate(-20deg);
+      }
+      .fa-at , .fa-mail-bulk{
+      transform: rotate(10deg);
+      }
+      input, textarea, select {
+      width: calc(100% - 18px);
+      padding: 5px;
+      margin-bottom: 2px;
+      border: 1px solid #1c87c9;
+      outline: none;
+      }
+      select{
+      	width: 100%;
+      }
+      input::placeholder {
+      color: #666;
+      }
+      button {
+      width: 100%;
+      padding: 5px;
+      border: none;
+      background: #1c87c9; 
+      font-size: 16px;
+      font-weight: 400;
+      color: #fff;
+      }
+      button:hover {
+      background: #2371a0;
+      }    
+      .err {
+        margin-bottom: 5px;
+        color: red; 
+      }
+    </style>
+  </head>
+  <body>
+    <div class="main-block">
+      <div class="left-part">
+        <i class="fas fa-envelope"></i>
+        <i class="fas fa-at"></i>
+        <i class="fas fa-mail-bulk"></i>
+      </div>
+      <form action="/admin/manageStock/stockInSuccess" method="post">
+        <h1>Nhập kho</h1>
+        <div class="info">
+          <p>Mã</p>
+          <input id="shoeId" class="fname" type="text" name="shoeId" placeholder="Mã" required>
+          <p>Cỡ</p> 
+          <input id="shoeSize" type="number" name="shoeSize" placeholder="Cỡ"required>
+          <p id="shoeNubmerErr" class="err"></p>          
+          <p>Số lượng</p> 
+          <input id="quantity" type="number" name="quantity" placeholder="Số lượng"required >
+          <p id="shoeQuantityErr" class="err"></p> 
+        </div> 
+        <button type="submit" onclick="submitForm()" >Nhập</button> <br> <hr>
+        <button type="button" onclick="toHome()">Home</button>
+      </form>
+    </div>
+  <script>
+    function submitForm() {
+      let shoeId = document.getElementById('shoeId');
+      let shoeSize = document.getElementById('shoeSize');
+      let quantity = document.getElementById('quantity');
+
+      let validId, validShoeSize, validQuantity;
+
+      let notEmptyReg = new RegExp('^(?!\\s*$).+');
+      let notIsNull  = new RegExp('^((?!null))');
+
+      let http = new XMLHttpRequest();
+      let data ;
+      http.open('GET', '/manageStock/api/' +shoeId + '/' + shoeSize);
+      http.send();
+      http.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          data = JSON.parse(this.responseText);
+          validId = notEmptyReg.test(shoeId) && notIsNull.test(data.shoeId);
+          validShoeSize = notEmptyReg.test(shoeSize) && (shoeSize > 0);
+          validQuantity = notEmptyReg.test(quantity) && (quantity > 0);
+
+          if(!validId) alert('Mã không tồn tại');
+          if (!validShoeSize) alert('Cỡ không hợp lệ');
+          if (!validQuantity) alert('Số lượng không hợp lệ')
+
+          if(validId && validShoeSize && validQuantity) {
+            alert('Thông tin đã hợp lệ');
+          }
+
+          document.getElementById('shoeId').innerText = shoeId;
+          document.getElementById('shoeSize').innerText = shoeSize;
+          document.getElementById('quantity').innerText = quantity;
+        }
+      }
+    }
+
+    function toHome() {
+      window.open("/admin/manageStock");
+    }
+  </script>
+  </body>
+</html>

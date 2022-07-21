@@ -1,0 +1,963 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">  
+    <title>ShoesG2 Store</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="assets/fonts/fontawesome/css/all.min.css">
+    
+    <!-- Root -->
+    <style>
+    :root {
+        --nav-background-color: #2A2A2A;
+        --content-text-color: #cccccc;
+        --title-text-color: #f5f5f5;
+        --background-color: #121212;
+        --searchbar-background: #202020;
+        --blue: #0074e4;
+        --blue-hover: #3790e2;
+        --header-herght: 51.8px;
+        --header-search-herght: 80px;
+      }
+
+      html {
+        font-size: 62.5%;
+        line-height: 1.6rem;
+        font-family: 'Roboto', sans-serif;
+        box-sizing: border-box;
+        background-color: var(--background-color);
+      }
+      /* Responsive */
+      .grid {
+        width: 75%;
+        max-width: 100%;
+        margin: 0 auto;
+      }
+
+      .grid__full-width {
+        width: 100%;
+      }
+
+      .grid__row {
+        display: flex;
+        flex-wrap: wrap;
+        margin-left: -8px;
+        margin-right: -8px;
+      }
+
+      .separate{
+        height: 1px;
+        width: 100%;
+        background-color: #cccccc1f;
+      }
+
+      * {
+        box-sizing: inherit;
+      }
+    </style>
+    <!-- Nav Bar -->
+    <style>
+      .logo-link {
+        color: transparent;
+        text-decoration: none;
+      }
+
+      .header-nav {
+        width: 100%;
+        height: var(--header-herght);
+        background-color: var(--nav-background-color);
+        justify-content: space-between;
+        display: flex;
+      }
+
+      .header__navbar {
+        width: 100%;
+        display: flex;
+        line-height: var(--header-herght);
+        justify-content: space-between;
+      }
+
+      .header__navbar-list {
+        height: var(--header-herght);
+        padding-left: 0;
+        margin: 0;
+        box-sizing: border-box;
+      }
+
+      .header__navbar-item, .header__navbar-item-link {
+        height: var(--header-herght);
+        color: var(--content-text-color);
+        list-style: none;
+        display: inline-block;
+        font-size: 1.2rem;
+        text-decoration: none;
+        font-weight: 400;
+        padding-bottom: 1px;
+      }
+
+      .header__navbar-item, .header__navbar-item-link:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__navbar-item-link {
+        padding: 2px 20px 0;
+        box-sizing: border-box;
+      }
+
+      .header__navbar-item-link-cart {
+        background-color: #0078f2;
+        width: 136.25px;
+        padding-top: 2px;
+        margin: 0 auto;
+      }
+
+      .header__navbar-item-link-cart:hover {
+        background-color: #3299ff;
+      }
+
+      .cart-notice {
+        padding: 1px 10px 0;
+        margin-left: 5px;
+        background-color: #f5f5f5;
+        color: #121212;
+        line-height: 30px;
+        border-radius: 10px;
+        font-weight: 700;
+        font-size: 13px;
+      }
+    </style>
+    <!-- Search Bar -->
+    <style>
+      .header-search {
+        height: var(--header-search-herght);
+        background-color: var(--background-color);
+        display: flex;
+      }
+
+      .header-search-bar {
+        height: var(--header-search-herght);
+        max-width: 300px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .search-bar {
+        background-color: var(--searchbar-background);
+        height: 40px;
+        width: 300px;
+        border-radius: 20px;
+        display: flex;
+        align-items: center;
+        position: relative;
+      }
+
+      .search-bar-input {
+        background-color: none;
+        height: 100%;
+        width: 100%;
+        border: none;
+        outline: none;
+        border-radius: 20px;
+        font-size: 14px;
+        color: var(--title-text-color);
+        font-weight: 500;
+        background-color: transparent;
+        margin-top: 1px;
+      }
+
+      .search-bar-input:focus ~ .search-history {
+        display: block;
+      }
+
+      .search-history {
+        position: absolute;
+        top: calc(100% + 10px);
+        width: 500px;
+        border-radius: 4px;
+        background-color: var(--searchbar-background);
+        display: none;
+
+      }
+
+      .search-history-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .search-history-item {
+        padding: 8px 20px;
+      }
+
+      .search-history-item a {
+        text-decoration: none;
+        font-size: 16px;
+        color: var(--title-text-color);
+        padding: 8px 0;
+      }
+
+      .search-history-item a:hover {
+        text-decoration: underline;
+      }
+
+      .header-search-nav {
+        height: var(--header-search-herght);
+        display: flex;
+      }
+
+      .header-search-nav-list {
+        height: var(--header-search-herght);
+        line-height: var(--header-search-herght);
+        display: flex;
+        padding-left: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .header__search-nav-item {
+        color: var(--content-text-color);
+        font-size: 1.2rem;
+        margin: 1px 5px 0;
+      }
+
+      .header__search-nav-item:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__search-nav-item-link {
+        list-style: none;
+        text-decoration: none;
+        font-weight: 400;
+        padding: 10px;
+        color: var(--content-text-color);
+        font-size: 16px;
+        font-weight: 320;
+        transition: color linear 0.1s;
+      }
+
+      .header__search-nav-item-link:hover {
+        color: var(--title-text-color);
+      }
+
+      .header__search-nav-item-link-cart {
+        background-color: #0078f2;
+      }
+
+      .header__search-nav-item-link-cart:hover {
+        background-color: #3299ff;
+      }
+    </style>
+    <!-- Container -->
+    <style>
+      .app-content {
+        margin: 15px 0 90px;
+      }
+      
+      .grid__column-3 {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 25%;  
+      }
+
+      .grid__column-9 {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 75%;
+      }
+
+      /* Title */
+      .title {
+        margin: 25px 0 30px;
+        width: 100%;
+      }
+
+      .title-text {
+        color: var(--title-text-color);
+        font-size: 50px;
+        font-weight: 400;
+      }
+
+      /* Slideshow */
+      .slider {
+        --slide-height: 700px;
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        border-radius: 4px;
+        overflow: hidden;
+      }
+
+      .slides {
+        width: 500%;
+        aspect-ratio: 16 / 9;
+        display: flex;
+      }
+
+      .slide-radio-btn {
+        display: none;
+      }
+
+      .slide {
+        background-color: #f5f5f5;
+        width: 20%;
+        transition: 0.5s;
+      }
+      
+      .slide-img {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        border-radius: 4px;
+      }
+
+      /* Slide Navigation */
+      .navigation-manual {
+        width: 100%;
+        display: flex;
+        justify-content: center;
+        height: 125px;
+      }
+
+      .manual-btn {
+        background-color: #f5f5f5;
+        background-repeat: no-repeat;
+        background-size: contain;
+        background-position: center;
+        aspect-ratio: 16 / 9;
+        height: 56.81px;
+        padding: 5px;
+        border-radius: 4px;
+        cursor: pointer;
+        transition: 0.5s;
+        margin-top: 20px;
+      }
+
+      .manual-btn:hover {
+        opacity: 0.8;
+      }
+
+      .manual-btn:not(:last-child) {
+        margin-right: 20px;
+      }
+
+      #radio1:checked ~ .slider .slide-first {
+        margin-left: 0;
+      }
+
+      #radio2:checked ~ .slider .slide-first {
+        margin-left: -20%;
+      }
+
+      #radio3:checked ~ .slider .slide-first {
+        margin-left: -40%;
+      }
+
+      #radio4:checked ~ .slider .slide-first {
+        margin-left: -60%;
+      }
+
+      #radio5:checked ~ .slider .slide-first {
+        margin-left: -80%;
+      }
+
+      #radio1:checked ~ .navigation-manual .manual-btn1 {
+        padding: 35px;
+      }
+
+      #radio2:checked ~ .navigation-manual .manual-btn2 {
+        padding: 35px;
+      }
+
+      #radio3:checked ~ .navigation-manual .manual-btn3 {
+        padding: 35px;
+      }
+
+      #radio4:checked ~ .navigation-manual .manual-btn4 {
+        padding: 35px;
+      }
+
+      #radio5:checked ~ .navigation-manual .manual-btn5 {
+        padding: 35px;
+      }
+
+      /* Paragraph */
+      .paragraph-h2 {
+        font-size: 16px;
+        text-transform: uppercase;
+        color: var(--title-text-color);
+      }
+
+      .paragraph {
+        color: var(--content-text-color);
+        font-size: 16px;
+        padding-top: 5px;
+        padding-bottom: 5px;
+      }
+
+      /* Order */
+      .product-items__brand {
+        background-color: var(--blue);
+        width: fit-content;
+        font-size: 14px;
+        text-transform: uppercase;
+        padding: 7px 12px 5px;
+        border-radius: 4px;
+        font-weight: 500;
+      }
+
+      .product-items__brand-link {
+        text-decoration: none;
+        color: var(--title-text-color);
+      }
+
+      .product-items__brand-link:hover .product-items__brand{
+        background-color: var(--blue-hover);
+      }
+
+      .product-items__price {
+        padding: 14px 0 25px;
+      }
+
+      .product-items__price-current {
+        font-size: 16px;
+        color: var(--title-text-color);
+      }
+
+      .product-items__size {
+        font-size: 16px;
+        color: var(--title-text-color);
+      }
+
+      .grid__column-size {
+        padding-left: 4px;
+        padding-right: 4px;
+        padding-top: 4px;
+        width: 25%;
+        cursor: pointer;
+      }
+
+      .size-items {
+        box-sizing: border-box;
+        background-color: var(--background-color);
+        border: solid 1px #cccccc80;
+        border-radius: 4px;
+        text-align: center;
+        line-height: 42px;
+        color: var(--content-text-color);
+        font-size: 16px;
+        font-weight: 500;
+        transition: 0.1s;
+      }
+
+      .size-items:hover {
+        background-color: #cccccc80;
+      }
+
+      .size-radio-btn{
+        display: none;
+      }
+
+      #size-radio1:checked ~ .grid__row .grid__column-size .size-items1 {
+        background-color: #0074e4;
+      }
+
+      #size-radio2:checked ~ .grid__row .grid__column-size .size-items2 {
+        background-color: #0074e4;
+      }
+
+      #size-radio3:checked ~ .grid__row .grid__column-size .size-items3 {
+        background-color: #0074e4;
+      }
+
+      #size-radio4:checked ~ .grid__row .grid__column-size .size-items4 {
+        background-color: #0074e4;
+      }
+
+      #size-radio5:checked ~ .grid__row .grid__column-size .size-items5 {
+        background-color: #0074e4;
+      }
+
+      #size-radio6:checked ~ .grid__row .grid__column-size .size-items6 {
+        background-color: #0074e4;
+      }
+
+      #size-radio7:checked ~ .grid__row .grid__column-size .size-items7 {
+        background-color: #0074e4;
+      }
+
+      #size-radio8:checked ~ .grid__row .grid__column-size .size-items8 {
+        background-color: #0074e4;
+      }
+
+      #size-radio9:checked ~ .grid__row .grid__column-size .size-items9 {
+        background-color: #0074e4;
+      }
+
+      #size-radio10:checked ~ .grid__row .grid__column-size .size-items10 {
+        background-color: #0074e4;
+      }
+
+      #size-radio11:checked ~ .grid__row .grid__column-size .size-items11 {
+        background-color: #0074e4;
+      }
+
+      #size-radio12:checked ~ .grid__row .grid__column-size .size-items12 {
+        background-color: #0074e4;
+      }
+
+      .buy-btn {
+        background-color: var(--blue);
+        border-radius: 4px;
+        text-align: center;
+        line-height: 50px;
+        color: var(--content-text-color);
+        font-size: 17px;
+        font-weight: 600;
+        transition: 0.1s;
+        width: 100%;
+        cursor: pointer;
+        transition: 0.1s;
+      }
+
+      .buy-btn:hover {
+        background-color: var(--blue-hover);
+      }
+
+      .size-help {
+        width: 100%;
+        text-align: center;
+      }
+
+      .size-help a {
+        font-size: 16px;
+        color: var(--content-text-color);
+        text-decoration: none;
+      }
+
+      .size-help a:hover {
+        color: var(--title-text-color);
+      }
+    </style>
+
+    <!-- Footer -->
+    <style>
+      .footer {
+        padding: 20px 72px 40px;
+        background-color: var(--searchbar-background);
+      }
+      
+      .grid__column-fooder {
+        padding-left: 8px;
+        padding-right: 8px;
+        width: 20%;
+      }
+
+      .follow {
+        display: flex;
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .follow-items {
+        padding: 0 6px;
+      }
+
+      .follow-items-link {
+        color: #e7e7e7;
+        font-size: 32px;
+        transition: color linear 0.1s;
+      }
+
+      .follow-items-link:hover {
+        color: #0078f2;
+      }
+
+      .footer-heading {
+        color: #cccccc99;
+        font-size: 14px;
+      }
+
+      .footer-list {
+        list-style: none;
+        padding-left: 0;
+      }
+
+      .footer-list-items {
+        padding: 4px 0;
+      }
+
+      .footer-list-items-link {
+        color: var(--title-text-color);
+        text-decoration: none;
+        font-size: 14px;
+        padding: 4px 0;
+        transition: color linear 0.1s;
+      }
+
+      .footer-list-items-link:hover {
+        color: #0078f2;
+      }
+
+      .policy-list {
+        list-style: none;
+        display: flex;
+        padding-left: 0;
+      }
+
+      .policy-list-items {
+        padding: 20px 8px 0;
+      }
+
+      .policy-list-items-link {
+        color: #e7e7e7;
+        text-decoration: none;
+        font-size: 13px;
+        transition: color linear 0.1s;
+      }
+
+      .policy-list-items-link:hover {
+        color: #0078f2;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="app">
+      <!--Header Nav-->
+      <header style="z-index: 1001; position: absolute; width: 100%; transform: translateY(calc(-100% - 1px));" class="header">
+        <div class="header-nav">
+          <a class="logo-link" href="/">
+            <div class="header-logo"><img style="height: 43px; margin: 5px 15px 0;" src="./assets/img/logo.png" alt=""></div>
+          </a>
+          <nav class="header__navbar">
+            <ul class="header__navbar-list">
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>CỬA HÀNG</b></a>
+              </li>
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>HỖ TRỢ</b></a>
+              </li>
+              <li class="header__navbar-item">
+                <a href="" class="header__navbar-item-link"><b>TIN TỨC</b></a>  
+              </li>
+            </ul>
+  
+            <ul class="header__navbar-list">
+              <li style="text-align: center;" class="header__navbar-item">
+                <a style="color: var(--title-text-color);" href="./cart.html" class="header__navbar-item-link header__navbar-item-link-cart">
+                    <b>GIỎ HÀNG</b><span class="cart-notice">3</span></a>
+              </li>
+            </ul>
+          </nav>
+        </div>
+      </header>
+
+      <div class="container">
+        <!--Search Bar-->
+        <div style="position: sticky; position: -webkit-sticky; top: 0; z-index: 1000; margin-top: var(--header-herght);" class="grid">
+          <div class="header-search">
+            <div class="header-search-bar">
+              <div class="search-bar">
+                <i style="color: var(--title-text-color); margin: 2px 16px 0;" class="fa-solid fa-magnifying-glass fa-lg"></i>
+                <input spellcheck="false" type="text" class="search-bar-input"  placeholder="Tìm Kiếm Sản Phẩm">
+                <div class="search-history">
+                  <!-- Search History -->
+                  <ul class="search-history-list">
+                    <li class="search-history-item">
+                      <a href="">Giày Adidas</a>
+                    </li>
+                    <li class="search-history-item">
+                      <a href="">Giày Balenciaga</a>
+                    </li>
+                    <li class="search-history-item">
+                      <a id = "shoeName">Giày Gì đó</a>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </div>
+  
+            <div class="header-search-nav">
+              <ul class="header-search-nav-list">
+                <li style="margin-left: 20px;" class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Khám Phá</b></a>
+                </li>
+                <li class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Hàng Mới</b></a>
+                </li>
+                <li class="header__search-nav-item">
+                  <a href="" class="header__search-nav-item-link"><b>Hàng Giảm Giá</b></a>  
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+        <div class="grid">
+          <div class="grid__row app-content">
+            <div  class="separate"></div>
+            <div class="title">
+              <h1>
+                <span class="title-text">Giày gì đó</span>
+              </h1>
+            </div>
+
+            <div style="padding-left: 0; padding-right: 25px;" class="grid__column-9">
+              <!-- SlideShow -->
+              <input class="slide-radio-btn" type="radio" name="radio-btn" id="radio1">
+              <input class="slide-radio-btn" type="radio" name="radio-btn" id="radio2">
+              <input class="slide-radio-btn" type="radio" name="radio-btn" id="radio3">
+              <input class="slide-radio-btn" type="radio" name="radio-btn" id="radio4">
+              <input class="slide-radio-btn" type="radio" name="radio-btn" id="radio5">
+              <div class="slider">
+                <div class="slides">
+                  <div class="slide slide-first">
+                    <div class="slide-img" id="url1" style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ace13386e5ca429a8467adf90088ea97_9366/Stan_Smith_Shoes_White_GV7608_01_standard.jpg)"></div>
+                  </div>
+                  <div class="slide">
+                    <div class="slide-img" id="url2"  style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/d0356c05c0d4473f9b96adf90088fb91_9366/Stan_Smith_Shoes_White_GV7608_02_standard_hover.jpg);"></div>
+                  </div>
+                  <div class="slide">
+                    <div class="slide-img" id="url3" style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/355c5554dbf240bca0d9adf900890377_9366/Stan_Smith_Shoes_White_GV7608_03_standard.jpg);"></div>
+                  </div>
+                  <div class="slide">
+                    <div class="slide-img" id="url4" style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/bb6ed9660a8146f7b842adf900890af4_9366/Stan_Smith_Shoes_White_GV7608_04_standard.jpg);"></div>
+                  </div>
+                  <div class="slide">
+                    <div class="slide-img" id="url5" style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/7de2f51cf97f4d83b3e7adf900891356_9366/Stan_Smith_Shoes_White_GV7608_05_standard.jpg);"></div>
+                  </div>
+                </div>
+              </div>
+              <!-- Navigation -->
+              <div class="navigation-manual">
+                <label style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/ace13386e5ca429a8467adf90088ea97_9366/Stan_Smith_Shoes_White_GV7608_01_standard.jpg);" for="radio1" class="manual-btn manual-btn1"></label>
+                <label style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/d0356c05c0d4473f9b96adf90088fb91_9366/Stan_Smith_Shoes_White_GV7608_02_standard_hover.jpg);" for="radio2" class="manual-btn manual-btn2"></label>
+                <label style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/355c5554dbf240bca0d9adf900890377_9366/Stan_Smith_Shoes_White_GV7608_03_standard.jpg);" for="radio3" class="manual-btn manual-btn3"></label>
+                <label style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/bb6ed9660a8146f7b842adf900890af4_9366/Stan_Smith_Shoes_White_GV7608_04_standard.jpg);" for="radio4" class="manual-btn manual-btn4"></label>
+                <label style="background-image: url(https://assets.adidas.com/images/h_840,f_auto,q_auto,fl_lossy,c_fill,g_auto/7de2f51cf97f4d83b3e7adf900891356_9366/Stan_Smith_Shoes_White_GV7608_05_standard.jpg);" for="radio5" class="manual-btn manual-btn5"></label>
+              </div>
+              <!-- Paragraph -->
+              <h2 class="paragraph-h2" id="information">Các đặc điểm nổi bật: </h2>
+            </div>
+            <!-- Order -->
+            <div style="padding-right: 0; padding-left: 30px;" class="grid__column-3">
+              <div style="position: sticky; position: -webkit-sticky; top: var(--header-search-herght);" class="order">
+                <a href="" class="product-items__brand-link">
+                  <div class="product-items__brand" id="manufactName">Adidas</div>
+                </a>
+                <div class="product-items__price">
+                  <span class="product-items__price-current" id="price">3.200.000đ</span>
+                </div>
+                <div style="margin-bottom: 10px;" class="product-items__size">
+                  Chọn Kích Thước:
+                </div>
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio1">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio2">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio3">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio4">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio5">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio6">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio7">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio8">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio9">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio10">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio11">
+                <input class="size-radio-btn" type="radio" name="size-radio-btn" id="size-radio12">
+                <div style="padding: 4px;" class="grid__row">
+                  <!-- Size Box -->
+                  <label for="size-radio1" class="grid__column-size" onclick="queryQuantity(31)">
+                    <div class="size-items size-items1"><span>31</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio2" class="grid__column-size">
+                    <div class="size-items size-items2"><span>32</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio3" class="grid__column-size">
+                    <div class="size-items size-items3"><span>33</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio4" class="grid__column-size">
+                    <div class="size-items size-items4"><span>34</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio5" class="grid__column-size">
+                    <div class="size-items size-items5"><span>35</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio6" class="grid__column-size">
+                    <div class="size-items size-items6"><span>36</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio7" class="grid__column-size">
+                    <div class="size-items size-items7"><span>37</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio8" class="grid__column-size">
+                    <div class="size-items size-items8"><span>38</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio9" class="grid__column-size">
+                    <div class="size-items size-items9"><span>39</span></div>
+                  </label>
+                  <!-- Size Box -->
+                  <label for="size-radio10" class="grid__column-size">
+                    <div class="size-items size-items10"><span>40</span></div>
+                  </label>
+                  <label for="size-radio11" class="grid__column-size">
+                    <div class="size-items size-items11"><span>41</span></div>
+                  </label>
+                  <label for="size-radio12" class="grid__column-size">
+                    <div class="size-items size-items12"><span>42</span></div>
+                  </label>
+                </div>
+                <div style="margin-top: 30px;" class="size-help"><a id="amount">Tồn kho: </a></div>
+                <div style="margin-top: 20px;" class="separate"></div>
+                <button style="margin-top: 20px;" class="buy-btn">THÊM VÀO GIỎ HÀNG</button>
+                <div style="margin-bottom: 10px; margin-top: 25px;" class="product-items__size">
+                  ID Sản Phẩm: 726176W3RCD9010
+                </div>
+
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer class="footer">
+        <div class="grid__full-width">
+          <ul class="follow">
+            <li style="padding-left: 0;" class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-facebook-square"></i></a>
+            </li>
+            <li style="padding-left: 9px;" class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-twitter"></i></a>
+            </li>
+            <li class="follow-items">
+              <a href="" class="follow-items-link"><i class="fa-brands fa-youtube"></i></a>
+            </li>
+          </ul>
+          <div class="grid__row">
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Chăm Sóc Khách Hàng</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Trung Tâm Trợ Giúp</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Hướng Dẫn Mua Hàng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Thanh Toán</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Vẫn Chuyển</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Chăm Sóc Khách Hàng</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Thông Tin Về ShoesG2</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Giới Thiệu Về ShoesG2</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Thông Tin Tuyển Dụng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Liên Hệ Với Truyền Thông</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+              <h4 class="footer-heading">Được Thực Hiện Bởi Nhóm 2</h4>
+              <ul class="footer-list">
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Ngô Văn Thuần</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Đỗ Văn Minh Dũng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Nguyễn Viết Tân</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Nguyễn Văn Trưởng</a>
+                </li>
+                <li class="footer-list-items">
+                  <a href="" class="footer-list-items-link">Chu Quang Thuận</a>
+                </li>
+              </ul>
+            </div>
+            <div class="grid__column-fooder">
+            </div>
+            <div class="grid__column-fooder">
+            </div>
+          </div>
+          <div style="margin: 16px 0;" class="separate"></div>
+          <div class="policy">
+            <ul class="policy-list">
+              <li style="padding-left: 0;" class="policy-list-items">
+                <a href="" class="policy-list-items-link">Điều Khoản Dịch Vụ</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Bảo Mật</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Vận Chuyển</a>
+              </li>
+              <li class="policy-list-items">
+                <a href="" class="policy-list-items-link">Chính Sách Trả Hàng Và Hoàn Tiền</a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </footer>
+      <script>
+        function queryQuantity(size){
+          let strURL = window.location.href.split("/");
+          let apiURL = 'http://localhost:8080/product/api/' + strURL[strURL.length -1] + '/' + size;
+          $.ajax({
+            url: apiURL,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response) {},
+            success: function (response) {
+              let table = '<p>' + response.quantity + '0' +'</p>';
+              document.getElementById('listUser').innerHTML = table;
+            },
+            fail: function (response) { }
+          });
+
+          document.getElementById('amount').innerText = 'Ton kho: ' + apiURL;
+        }
+        function queryQuantit(size){
+          let strURL = window.location.href.split("/");
+          let shoeId = strURL[strURL.length -1];
+          $.ajax({
+            url: 'http://localhost:8080/product/api/' + shoeId + '/' + size,
+            method: 'GET',
+            contentType: 'json',
+            dataType: 'json',
+            error: function (response){},
+            success: function (response) {
+              let amount = response.quantity;
+              document.getElementById('amount').innerText = amount;
+            },
+            fail: function (response) {     }
+          });
+        }
+
+      </script>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- linked css -->
+    <style>
+        * {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        }
+        #container {
+        min-height: 100vh;
+        height: auto;
+        width: auto;
+        position: relative;
+        top: 0;
+        left: 0;
+        background: #f1f4f9;
+        overflow: auto;
+        }
+        /* side bar */
+        #sidebar {
+        position: sticky; position: -webkit-sticky; 
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100px;
+        background: #06a4ff;
+        border-radius: 0 30px 30px 0;
+        display: flex;
+        justify-content: center;
+        z-index: 999;
+        }
+
+        /* logo */
+        #sidebar #logo {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        position: absolute;
+        top: 3%;
+        }
+        #sidebar #logo img {
+        height: 100%;
+        width: 100%;
+        }
+        /* navigation bar open button */
+        #button {
+        height: 50px;
+        width: 60px;
+        position: absolute;
+        top: calc(50% - 25px);
+        cursor: pointer;
+        }
+        .openNav span {
+        display: block;
+        height: 6px;
+        width: 50px;
+        border-radius: 50px;
+        margin: 8px 0;
+        background: #fff;
+        }
+        .openNav span:nth-child(2) {
+        margin: 8px 12px;
+        transition: 0.2s;
+        }
+        .openNav:hover span:nth-child(2) {
+        margin: 8px 0;
+        }
+        /* close navbar */
+        #button .fa-times {
+        height: 50px;
+        width: 50px;
+        display: grid;
+        place-items: center;
+        color: #f1f4f9;
+        font-size: 22px;
+        }
+        /* main navigation bar */
+        #navbar-container {
+        height: 100vh;
+        width: calc(100% + 500px);
+        position: absolute;
+        left: -300px;
+        top: 0;
+        z-index: 998;
+        backdrop-filter: blur(20px);
+        display: none;
+        }
+        #navbar-container #navbar {
+        height: 100%;
+        width: 300px;
+        display: grid;
+        place-items: center;
+        background: #1c87c9;
+        }
+        #navbar-container #navbar ul {
+        list-style: none;
+        }
+        #navbar-container #navbar ul li {
+        margin: 30px 0;
+        }
+        #navbar-container #navbar ul li a {
+        text-decoration: none;
+        color: #ced2da;
+        font-size: 20px;
+        transition: 0.5s;
+        }
+        #navbar-container #navbar ul li a:hover {
+        margin: 30px 15px;
+        color: #f1f4f9;
+        }
+        #navbar-container #navbar ul .active a {
+        margin: 30px 10px;
+        color: #f1f4f9;
+        }
+        /* main page css */
+        #main {
+        height: 100%;
+        width: calc(100% - 100px);
+        position: absolute;
+        left: 100px;
+        top: 0;
+        z-index: 997;
+        }
+        /* header */
+        #main #header {
+        height: 70px;
+        width: calc(100% + 465px);
+        background: #fff;
+        box-shadow: 2px 2px 5px #00000030;
+        position: absolute;
+        left: -30px;
+        display: flex;
+        align-items: center;
+        }
+        /* main page title */
+        #main #header #title {
+        position: absolute;
+        left: 8%;
+        font-size: 22px;
+        font-weight: bolder;
+        color: #06a4ff;
+        }
+        #main #header #searchBox {
+        display: flex;
+        flex-direction: row;
+        position: absolute;
+        right: calc(50% - 160px);
+        z-index: 997;
+        }
+        #main #header #searchBox input[type="text"] {
+        height: 45px;
+        width: 250px;
+        border: none;
+        outline: none;
+        border: 1px solid #06a4ff;
+        padding: 0 20px;
+        border-radius: 30px 0 0 30px;
+        color: #06a4ff;
+        }
+        #main #header #searchBox input[type="text"]::placeholder {
+        color: #06a4ff;
+        }
+        #main #header #searchBox input[type="submit"] {
+        height: 45px;
+        width: 80px;
+        border: none;
+        outline: none;
+        background: #06a4ff;
+        border-radius: 0 30px 30px 0;
+        color: #fff;
+        cursor: pointer;
+        }
+        #main #header .logout {
+        height: 50px;
+        width: 150px;
+        display: grid;
+        place-items: center;
+        position:absolute;
+        right: 8%;
+        background: #06a4ff;
+        font-size: 18px;
+        border-radius: 30px;
+        color: #fff;
+        cursor: pointer;
+        }
+        /* analytics */
+        #analytics {
+        height: 200px;
+        width: 100%;
+        position: absolute;
+        top: 100px;
+        left: 0;
+        display: flex;
+        flex-direction: row;
+        }
+        /* cards */
+        #analytics .cards {
+        height: 200px;
+        width: 350px;
+        background: #fff;
+        margin: 0 50px;
+        padding: 20px;
+        display: grid;
+        place-items: center;
+        border-radius: 4px;
+        box-shadow: 2px 2px 5px #00000015;
+        }
+        #analytics .cards .icons {
+        font-size: 40px;
+        color: #06a4ff;
+        }
+        #analytics .cards h2 {
+        font-size: 60px;
+        color: #000;
+        }
+        #analytics .cards h4 {
+        font-size: 20px;
+        color: #000;
+        }
+        #analytics .cards:hover {
+        background: #06a4ff;
+        }
+        #analytics .cards:hover .icons {
+        color: #fff;
+        }
+        #analytics .cards:hover h2 {
+        color: #fff;
+        }
+        #analytics .cards:hover h4 {
+        color: #fff;
+        }
+
+        /* users detail */
+        #table {
+        height: calc(100% - 350px);
+        width: 1650px;
+        position: absolute;
+        left: 0;
+        top: 150px;
+        display: grid;
+        place-items: center;
+        border-collapse: collapse;
+        padding: 0 5%;
+        }
+        #table tr {
+        height: 55px;
+        }
+        #table tr th {
+        width: auto;
+        color: #f1f4f9;
+        background: #06a4ff;
+        padding: 2px;
+        }
+        #table tr .i4 {
+            width: 500px;
+        }
+        #table tr .iName {
+            width: 200px;
+        }
+        #table tr td {
+        max-height: 200px;
+        text-align: center;
+        border: 1px solid #06a4ff;
+        padding: 2px;
+        }
+    </style>
+    <!-- font awesome CDN visit => "fontawesome.com" for icons -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js'></script>
+</head>
+<body>
+    <div id="container">
+        <!-- side bar -->
+        <div id="sidebar">
+            <!-- logo -->
+            <div id="logo">
+                <img src="https://i.postimg.cc/1XV8L9cD/logo.png" alt="logo">
+            </div>
+
+            <!-- navigation bar open button -->
+            <div id="button" class="openNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!-- main navigation bar -->
+        <div id="navbar-container">
+            <div id="navbar">
+                <ul>
+                    <li class="active"><a href="">ADMIN</a></li>
+                    <li><a href="/admin">Quản lý thông tin giày</a></li>
+                    <li><a href="/admin/manageStock">Quản lý kho</a></li>
+                    <li><a href="/admin/manageBill">Quản lý hóa đơn</a></li>                    
+                    <li><a href="/admin/analytic">Thống kê</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- main page -->
+        <div id="main">
+            <!-- page header -->
+            <div id="header">
+                <!-- page title -->
+                <div id="title">Quản lý thông tin</div> 
+                <!-- logout button -->
+                <div class="logout" style="right: 900px;" onclick="toChange()">Sửa thông tin</div>
+                <div class="logout" style="right: 700px;" onclick="toAdd()">Thêm giày</div>
+                <div class="logout" style="right: 500px;" onclick="toDelete()">Xóa giày</div>
+            </div>
+ 
+            <!-- users detail -->
+            <table id="table">
+                <tr>
+                    <th>Mã</th>
+                    <th>Tên</th>
+                    <th>Giá</th>
+                    <th>Hãng</th>
+                    <th class="i4">Thông tin</th>
+                    <th>Ảnh 1</th>
+                    <th>Ảnh 2</th>
+                    <th>Ảnh 3</th>
+                    <th>Ảnh 4</th>
+                    <th>Ảnh 5</th> 
+                </tr>
+                <tr>
+                    <td>AR0456</td>
+                    <td>CLUB C 85</td>
+                    <td>100000</td>
+                    <td>reebok</td>
+                    <td>Thân giầy làm bằng da mềm đem lại cảm giác thoải mái, Thích hợp cho phong cách giản dị, hàng ngày, Đế giữa đệm nhẹ Đế ngoài cao su có độ mài mòn cao giúp tăng độ bền cao</td>
+                    <td><img src="https://i.postimg.cc/8k6zqyC6/1.jpg" height="100px" width="100px"></td>
+                    <td><img src="https://i.postimg.cc/8k6zqyC6/1.jpg" height="100px" width="100px"></td>
+                    <td><img src="https://i.postimg.cc/8k6zqyC6/1.jpg" height="100px" width="100px"></td>
+                    <td><img src="https://i.postimg.cc/8k6zqyC6/1.jpg" height="100px" width="100px"></td>
+                    <td><img src="https://i.postimg.cc/8k6zqyC6/1.jpg" height="100px" width="100px"></td>
+                </tr> 
+            </table>
+        </div>
+    </div>
+    <script >
+        let openNav = document.querySelector(".openNav");
+        let sidebar = document.querySelector("#sidebar");
+        let navbar = document.querySelector("#navbar-container");
+
+        let li = document.querySelectorAll("li");
+
+        openNav.addEventListener("click", ()=>{
+            if(openNav.classList == "openNav"){
+                sidebar.style.left = "300px";
+                navbar.style.display = "block";
+                navbar.style.transition = "0.5s";
+                navbar.style.left = "0px";
+                openNav.innerHTML = '<i class="fas fa-times"></i>';
+                openNav.classList = "closeNav";
+            }else{
+                sidebar.style.left = "0px";
+                navbar.style.display = "none";
+                navbar.style.transition = "0.5s";
+                navbar.style.left = "-300px";
+                openNav.innerHTML = '<span></span><span></span><span></span>';
+                openNav.classList = "openNav";
+            }
+        });
+
+        li.forEach(items =>{
+            items.addEventListener("click", ()=>{
+                li.forEach(remove =>{
+                    remove.classList.remove("active");
+                })
+                items.classList.add("active");
+            });
+        });
+
+        let http = new XMLHttpRequest();
+        http.open('GET', 'http://localhost:8080/manageShoeInformation/api', true);
+        http.send();
+        http.onreadystatechange = function () {
+            if(this.readyState == 4 && this.status == 200){
+                renderShoeInformation(JSON.parse(this.responseText));
+            }
+        }
+
+        function renderShoeInformation (listShoeIn4) {
+            let result = '<tr>\n' +
+                '<th>Mã</th>' +
+                '<th class="iName">Tên</th>' +
+                '<th>Giá</th>' +
+                '<th>Hãng</th>' +
+                '<th class="i4">Thông tin</th>' +
+                '<th>Ảnh 1</th>' +
+                '<th>Ảnh 2</th>' +
+                '<th>Ảnh 3</th>' +
+                '<th>Ảnh 4</th>' +
+                '<th>Ảnh 5</th>' +
+                '</tr>';
+            for (let sIn4 of listShoeIn4) {
+                result += '<tr>'
+                result += '<td>' + sIn4.shoeId + '</td>';
+                result += '<td class="iName">' + sIn4.shoeName + '</td>';
+                result += '<td>' + sIn4.price + '</td>';
+                result += '<td>' + sIn4.manufactId + '</td>';
+                result += '<td class="i4">' + sIn4.information + '</td>';
+                result += '<td>' + '<img src="'+ sIn4.url1 +'" height="100" width="auto">'   +'</td>';
+                result += '<td>' + '<img src="'+ sIn4.url2 +'" height="100" width="auto">'   +'</td>';
+                result += '<td>' + '<img src="'+ sIn4.url3 +'" height="100" width="auto">'   +'</td>';
+                result += '<td>' + '<img src="'+ sIn4.url4 +'" height="100" width="auto">'   +'</td>';
+                result += '<td>' + '<img src="'+ sIn4.url5 +'" height="100" width="auto">'   +'</td>';
+                result += '</tr>' ;
+            }
+            document.getElementById('table').innerHTML = result;
+        }
+
+        function toChange() {
+            window.open("/changeShoeInformation", "_self");
+        }
+
+        function toAdd() {
+            window.open("/newShoeInformation", "_self");
+        }
+
+        function  toDelete(){
+            alert("Chức năng đang hoàn thiện");
+        }
+    </script>
+</body>
+</html>

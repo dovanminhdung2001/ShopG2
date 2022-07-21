@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel</title>
+    <!-- linked css -->
+    <style>
+        * {
+        padding: 0;
+        margin: 0;
+        font-family: sans-serif;
+        box-sizing: border-box;
+        }
+        #container {
+        min-height: 100vh;
+        height: auto;
+        width: auto;
+        position: relative;
+        top: 0;
+        left: 0;
+        background: #f1f4f9;
+        overflow: auto;
+        }
+        /* side bar */
+        #sidebar {
+        position: sticky; position: -webkit-sticky;
+        top: 0;
+        left: 0;
+        height: 100vh;
+        width: 100px;
+        background: #06a4ff;
+        border-radius: 0 30px 30px 0;
+        display: flex;
+        justify-content: center;
+        z-index: 999;
+        }
+
+        /* logo */
+        #sidebar #logo {
+        height: 50px;
+        width: 50px;
+        border-radius: 50%;
+        display: grid;
+        place-content: center;
+        position: absolute;
+        top: 3%;
+        }
+        #sidebar #logo img {
+        height: 100%;
+        width: 100%;
+        }
+        /* navigation bar open button */
+        #button {
+        height: 50px;
+        width: 60px;
+        position: absolute;
+        top: calc(50% - 25px);
+        cursor: pointer;
+        }
+        .openNav span {
+        display: block;
+        height: 6px;
+        width: 50px;
+        border-radius: 50px;
+        margin: 8px 0;
+        background: #fff;
+        }
+        .openNav span:nth-child(2) {
+        margin: 8px 12px;
+        transition: 0.2s;
+        }
+        .openNav:hover span:nth-child(2) {
+        margin: 8px 0;
+        }
+        /* close navbar */
+        #button .fa-times {
+            height: 50px;
+            width: 50px;
+            display: grid;
+            place-items: center;
+            color: #f1f4f9;
+            font-size: 22px;
+        }
+        /* main navigation bar */
+        #navbar-container {
+        height: 100vh;
+        width: calc(100% + 500px);
+        position: absolute;
+        left: -300px;
+        top: 0;
+        z-index: 998;
+        backdrop-filter: blur(20px);
+        display: none;
+        }
+        #navbar-container #navbar {
+        height: 100%;
+        width: 300px;
+        display: grid;
+        place-items: center;
+        background: #1c87c9;
+        }
+        #navbar-container #navbar ul {
+        list-style: none;
+        }
+        #navbar-container #navbar ul li {
+        margin: 30px 0;
+        }
+        #navbar-container #navbar ul li a {
+        text-decoration: none;
+        color: #ced2da;
+        font-size: 20px;
+        transition: 0.5s;
+        }
+        #navbar-container #navbar ul li a:hover {
+        margin: 30px 15px;
+        color: #f1f4f9;
+        }
+        #navbar-container #navbar ul .active a {
+        margin: 30px 10px;
+        color: #f1f4f9;
+        }
+        /* main page css */
+        #main {
+        height: 100%;
+        width: calc(100% - 100px);
+        position: absolute;
+        left: 100px;
+        top: 0;
+        z-index: 997;
+        }
+        /* header */
+        #main #header {
+        height: 70px;
+        width: calc(100% + 30px );
+        background: #fff;
+        box-shadow: 2px 2px 5px #00000030;
+        position: absolute;
+        left: -30px;
+        display: flex;
+        align-items: center;
+        }
+        /* main page title */
+        #main #header #title {
+        position: absolute;
+        left: 8%;
+        font-size: 22px;
+        font-weight: bolder;
+        color: #06a4ff;      
+        }
+        #main #header #searchBox input[type="text"] {
+        height: 45px;
+        width: 250px;
+        border: none;
+        outline: none;
+        border: 1px solid #06a4ff;
+        padding: 0 20px;
+        border-radius: 30px 0 0 30px;
+        color: #06a4ff;
+        }
+        #main #header #searchBox input[type="text"]::placeholder {
+        color: #06a4ff;
+        }
+        #main #header #searchBox input[type="submit"] {
+        height: 45px;
+        width: 80px;
+        border: none;
+        outline: none;
+        background: #06a4ff;
+        border-radius: 0 30px 30px 0;
+        color: #fff;
+        cursor: pointer;
+        }
+        #main #header .logout {
+        height: 50px;
+        width: 150px;
+        display: grid;
+        place-items: center;
+        position:absolute;
+        right: 8%;
+        background: #06a4ff;
+        font-size: 18px;
+        border-radius: 30px;
+        color: #fff;
+        cursor: pointer;
+        }
+        #analytics .cards h2 {
+        font-size: 60px;
+        color: #000;
+        }
+        #analytics .cards h4 {
+        font-size: 20px;
+        color: #000;
+        }
+        #analytics .cards:hover h2 {
+        color: #fff;
+        }
+        #analytics .cards:hover h4 {
+        color: #fff;
+        }
+        /* label */
+        #main #label1 {
+        height: 40px;
+        width: fit-content;
+        padding: 5px  20px ;
+        border-radius: 4px 4px 0 0;
+        color: #f1f4f9; 
+        font-size: 30px;
+        background-color: #06a4ff;
+        position: absolute;
+        top: 100px;
+        left: 55px;    
+        display: flex;
+        flex-direction: row;
+        }
+        /* users detail */
+        #table {
+        height: calc(100% - 350px);
+        width: calc(100% + 50px);
+        position: absolute;
+        left: 0;
+        top: 170px;
+        display: grid;
+        place-items: center;
+        border-collapse: collapse;
+        padding: 0 5%;
+        }
+        #table tr {
+        height: 55px;
+        }
+        #table tr th {
+        width: 350px;
+        color: #f1f4f9;
+        background: #06a4ff;
+        padding: 2px;
+        }
+        #table tr td {
+        max-height: 200px;
+        text-align: center;
+        border: 1px solid #06a4ff;
+        padding: 2px;
+        }
+    </style>
+    <!-- font awesome CDN visit => "fontawesome.com" for icons -->
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/all.min.js'></script>
+    <script src='https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/js/fontawesome.min.js'></script>
+</head>
+<body>
+    <div id="container">
+        <!-- side bar -->
+        <div id="sidebar">
+            <!-- logo -->
+            <div id="logo">
+                <img src="https://i.postimg.cc/1XV8L9cD/logo.png" alt="logo">
+            </div>
+            <!-- navigation bar open button -->
+            <div id="button" class="openNav">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+        <!-- main navigation bar -->
+        <div id="navbar-container">
+            <div id="navbar">
+                <ul>
+                    <li class="active"><a href="">ADMIN</a></li>
+                    <li><a href="/admin">Quản lý thông tin giày</a></li>
+                    <li><a href="/admin/manageStock">Quản lý kho</a></li>
+                    <li><a href="/admin/manageBill">Quản lý hóa đơn</a></li>
+                    <li><a href="/admin/analytic">Thống kê</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- main page -->
+        <div id="main">
+            <!-- page header -->
+            <div id="header">
+                <!-- page title -->
+                <div id="title">Quản lý hóa đơn</div> 
+                <!-- logout button -->
+                <div class="logout" onclick="renderSaleBill()">Hóa đơn bán</div>
+                <div class="logout" onclick="renderPurchaseBill()" style="right: 300px;">Hóa đơn nhập</div>
+            </div>
+
+            <!-- data -->
+            <div id="label1"></div>
+            <!-- users detail -->
+            <table id="table">
+            </table>
+        </div>
+    </div>
+    <script >
+        let openNav = document.querySelector(".openNav");
+        let sidebar = document.querySelector("#sidebar");
+        let navbar = document.querySelector("#navbar-container");
+
+        let li = document.querySelectorAll("li");
+
+        openNav.addEventListener("click", ()=>{
+            if(openNav.classList == "openNav"){
+                sidebar.style.left = "300px";
+                navbar.style.display = "block";
+                navbar.style.transition = "0.5s";
+                navbar.style.left = "0px";
+                openNav.innerHTML = '<i class="fas fa-times"></i>';
+                openNav.classList = "closeNav";
+            }else{
+                sidebar.style.left = "0px";
+                navbar.style.display = "none";
+                navbar.style.transition = "0.5s";
+                navbar.style.left = "-300px";
+                openNav.innerHTML = '<span></span><span></span><span></span>';
+                openNav.classList = "openNav";
+            }
+        });
+
+        li.forEach(items =>{
+            items.addEventListener("click", ()=>{
+                li.forEach(remove =>{
+                    remove.classList.remove("active");
+                })
+                items.classList.add("active");
+            });
+        });
+
+
+        function renderSaleBill() {
+            let result = '<tr>' +
+                    '<th>Mã</th> ' +
+                    '<th>Mã giày</th> ' +
+                    '<th>Cỡ</th> ' +
+                    '<th>Số lượng</th> ' +
+                    '<th>Tổng tiền</th> ' +
+                    '<th>Ngày tạo</th> ' +
+                    '<th>SĐT</th> ' +
+                    '<th>Tên khách hàng</th> ' +
+                    '<th>Email</th> ' +
+                    '<th>Địa chỉ</th>' +
+                '</tr> ';
+            let http = new XMLHttpRequest();
+            http.open('GET', '/manageSaleBill/api');
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let data = JSON.parse(this.responseText);
+                    for (let bill of data) {
+                        result += '<tr>'
+                            + '<td>' + bill.billId + '</td>'
+                            + '<td>' + bill.shoeId + '</td>'
+                            + '<td>' + bill.shoeSize + '</td>'
+                            + '<td>' + bill.quantity + '</td>'
+                            + '<td>' + bill.cost + '</td>'
+                            + '<td>' + bill.billDate + '</td>'
+                            + '<td>' + bill.customerName + '</td>'
+                            + '<td>' + bill.phoneNumber + '</td>'
+                            + '<td>' + bill.email + '</td>'
+                            + '<td>' + bill.address + '</td>'
+                            + '</tr>';
+                    }
+                    document.getElementById('table').innerHTML = result;
+                    document.getElementById('label1').innerText = 'Hóa đơn bán';
+                }
+            }
+        }
+
+        function renderPurchaseBill() {
+            let result = '<tr>' +
+                '<th>Mã</th> ' +
+                '<th>Mã giày</th> ' +
+                '<th>Cỡ</th> ' +
+                '<th>Số lượng</th> ' +
+                '<th>Tổng tiền</th> ' +
+                '<th>Ngày tạo</th> ' +
+                '</tr> ';
+            let http = new XMLHttpRequest();
+            http.open('GET', 'http://localhost:8080/managePurchaseBill/api');
+            http.send();
+            http.onreadystatechange = function () {
+                if (this.readyState == 4 && this.status == 200) {
+                    let data = JSON.parse(this.responseText);
+                    for (let bill of data) {
+                        result += '<tr>'
+                            + '<td>' + bill.billId + '</td>'
+                            + '<td>' + bill.shoeId + '</td>'
+                            + '<td>' + bill.shoeSize + '</td>'
+                            + '<td>' + bill.quantity + '</td>'
+                            + '<td>' + bill.cost + '</td>'
+                            + '<td>' + bill.billDate + '</td>'
+                            + '</tr>' ;
+                    }
+                    document.getElementById('table').innerHTML = result;
+                    document.getElementById('label1').innerText = 'Hóa đơn nhập';
+                }
+            }
+        }
+    </script>
+</body>
+</html>
